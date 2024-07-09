@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- Demo styles -->
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      padding: 0;
+    }
+
+    .top,
+    .bottom {
+      height: 300px;
+    }
+    
+    .swiper {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .swiper-slide {
+      /* text-align: center; */
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .swiper {
+      /* margin-left: auto; */
+      /* margin-right: auto; */
+    }
+
+
+    /* .swiper2 */
+    .swiper2 .swiper-pagination-bullets {
+      left: 0;
+      right: auto;
+    }
+
+    .swiper-pagination-bullet {
+      width: 100%;
+      height: 20px;
+      border-radius: 0;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      color: #000;
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .swiper-pagination-bullet-active {
+      font-weight: 600;
+    }
+
+    .swiper-pagination-bullet-active::after {
+      display: block;
+      content: '';
+      width: 100%; height: 1px;
+      background-color: #000;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="top"></div>
+
+  <!-- Swiper -->
+  <div class="swiper swiper2">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="box">
+          고구마
+        </div>
+      </div>
+      <div class="swiper-slide">Slide 2</div>
+      <div class="swiper-slide">Slide 3</div>
+      <div class="swiper-slide">Slide 4</div>
+    </div>
+    <div class="swiper-pagination">
+    </div> <!--페이지 위치-->
+  </div>
+
+  <div class="bottom"></div>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    let text = ['나는', '목차', '2ㅏ', '후후후']
+
+    var swiper2 = new Swiper(".swiper2", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      direction: "vertical",
+      mousewheel: true,
+      pagination: {
+        el: ".swiper-pagination", // class = swiper-pagination인 요소
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + text[index] + "</span>";
+        },
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      // isBeginning : {
+        // allowSlidePrev: false
+        // mousewheel: true,
+      //   allowSlidePrev: false
+      // },
+      // isEnd : {
+      //   allowSlideNext: false
+      // },
+      on : { 
+        reachBeginning: function() {
+          swiper2.disable()
+        },
+        reachEnd: function() {
+          swiper2.disable()
+          // swiper.enable()
+        }
+      }
+    });
+
+    swiper2.isBeginning 
+    
+    let swiperTop = document.querySelector('.swiper2').offsetTop;
+    let swiperB0ttom = document.querySelector('.swiper2').offsetBottom;
+
+    document.addEventListener('scroll', function(e) {
+      let result = e.deltaY < 0 ? 'up' : 'down';
+      let posTop = document.documentElement.scrollTop;
+
+      if(posTop >= swiperTop) swiper2.enable()
+    });
+
+    // }
+  </script>
+</body>
+
+</html>
