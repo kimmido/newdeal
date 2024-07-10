@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Document</title>
+        <style>
+            @font-face {
+                font-family: 'GmarketSansMedium';
+                src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+                    format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'GmarketSansMedium';
+                line-height: 1.5;
+            }
+            body,
+            html {
+                height: 100%;
+            }
+
+            #header {
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                height: 100px;
+                background-color: antiquewhite;
+                text-align: center;
+            }
+
+            .container {
+                height: 200vh; /* 전체 문서 높이를 늘림 */
+            }
+            .inner {
+                position: relative;
+                max-width: 1280px;
+                margin: 0 auto;
+                height: 100vh; /* 높이를 100vh로 설정 */
+            }
+            .intro .typo {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 400px;
+                font-size: 70px;
+                text-align: center;
+            }
+            .intro .typo01,
+            .intro .typo02 {
+                white-space: nowrap;
+            }
+            .intro .typo span {
+                display: block;
+                font-size: 40px;
+                font-weight: 400;
+            }
+            .intro .typo .typo01 {
+                transform: translateY(-200px);
+            }
+            .intro .typo .typo02 {
+                transform: translateY(200px);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">header</div>
+        <div class="container">
+            <div class="top" style="height: 200px;"></div>
+            <div class="intro pin01">
+                pin
+                <div class="inner">
+                    <div class="typo">
+                        <div class="typo01">마라탕<span>Malatang</span></div>
+                        <div class="typo02">탕후루<span>Tanghulu</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+        <script>
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // 과부화를 막기 위한 라이브러리 : https://lodash.com/docs/4.17.15#throttle
+            // window.addEventListener('scroll', _.throttle(함수, 시간)
+            const headerEl = document.querySelector('#header');
+            window.addEventListener('scroll', 
+                _.throttle(function() { 
+                    const scrollY = window.scrollY;
+    
+                    if(scrollY > 100) {
+                        // headerEl.style.display = 'none';
+                        gsap.to(headerEl, {
+                            // top: '-100px',
+                            y: '-100%',
+                            duration: 1
+                        });
+                    } else {
+                        gsap.to(headerEl, {
+                            // top: 0,
+                            y: 0,
+                            duration: 1
+                        });
+                    }
+                })
+            )
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.pin01', // 기준이 되는 요소
+                    scrub: 1, // 스크롤 속도에 따라 애니메이션 속도 조절
+                    pin: '.pin01', // 스크롤이 특정 위치에 도달하면 고정
+                    start: 'top', // 애니메이션이 시작되는 위치 (top:트리거 상단이 뷰포트 상단에 닿을 때)
+                    // end: '100% 70%',
+                    end: 'bottom 50%+=100px', // 애니메이션이 끝나는 위치
+                    markers: true, // 디버깅을 위한 마커 표시
+                },
+            });
+
+            // gsap.to('타겟', {옵션})
+            tl.to(".typo01", {
+                y: 0,
+                fontSize: '200px', // gsap에 없는 css 속성은 <카멜기법: '값'>으로 입력
+                duration: 1 
+            })
+                .to(".typo02", {
+                y: 0,
+                fontSize: '70px',
+                duration: 1 
+                }
+                , "-=1"
+            )
+                .to(".typo span", {
+                opacity: 0,
+                duration: 0.3 
+                })
+                .to('.typo', {
+        
+                gap: 0,
+                duration: 0.3 
+                });
+        </script>
+    </body>
+</html>
