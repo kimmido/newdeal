@@ -114,6 +114,10 @@
 
   <!-- Initialize Swiper -->
   <script>
+    // window.addEventListener("wheel", function(e){
+    // 	e.preventDefault();
+    // });
+
     let text = ['나는', '목차', '2ㅏ', '후후후']
 
     var swiper2 = new Swiper(".swiper2", {
@@ -154,16 +158,27 @@
     swiper2.isBeginning 
     
     let swiperTop = document.querySelector('.swiper2').offsetTop;
-    let swiperB0ttom = document.querySelector('.swiper2').offsetBottom;
 
-    document.addEventListener('scroll', function(e) {
+    window.addEventListener('scroll', function(e) {
+    	e.preventDefault();
+
       let result = e.deltaY < 0 ? 'up' : 'down';
       let posTop = document.documentElement.scrollTop;
 
-      if(posTop >= swiperTop) swiper2.enable()
+      if(posTop >= swiperTop) view(true);      
     });
 
-    // }
+    const body = document.getElementsByTagName("body")[0];
+
+    function view() {
+      if(scroll) {
+        body.style = "position: fixed";
+        // body.innerHTML = `<div class="view" stlye="widht: 100%, height: 100vh, position: fixed, overflow: hidden">`
+      } else {
+        const viewBox = body.getElementsClassName("view")[0];
+        viewBox.remove();
+      }
+    }
   </script>
 </body>
 

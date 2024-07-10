@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가로 스크롤링</title>
+    <style>
+        .container {
+            position: relative;
+            height: 200vh;
+        }
+
+        .item {
+            position: absolute;
+        }
+
+        .item1,
+        .item2 {
+            font-size: 100px;
+            font-weight: bold;
+        }
+
+        .item1 {
+            top: 300px;
+            transform-origin: 0.0; /* default: 50% 50% */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item item1">오리고기</div>
+        <!-- <div class="item item2">숙주나물</div>
+        <div class="item item3">겨자소스</div>
+        <div class="item item4">마늘</div> -->
+    </div><!--container-->
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const container = document.querySelector('.container');
+            const item1 = document.querySelector('.item1');
+
+            let scrolled = window.scrollY;
+            console.log(scrolled);
+            item1.style.color = 'brown';
+            item1.style.transform = `translate(${scrolled * 0.5}px, ${scrolled}px) scale(${0.5 + scrolled * 0.005})`;
+        })
+    </script>
+</body>
+</html>
