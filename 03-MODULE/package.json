@@ -1,0 +1,24 @@
+{
+  "_comment" : {
+    "main": "index.js 기본적으로 적혀있는 진입경로",
+    "scripts": {
+      "dev": "parcel index.html 개발 서버를 오픈할 때 진입경로",
+      "build": "parcel build index.html 실재 오픈할 때 진입경로"
+    }
+  },
+  "name": "03-module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "swiper": "^11.1.4"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
